@@ -1,0 +1,31 @@
+                <div class="video-wrapper">
+                	{{ apos.log("data")}}
+                	{{apos.log(data)}}
+
+                	{{ apos.log("Widget")}}
+                	{{ apos.log(data.widget)}}
+
+                    {{ apos.log("Widget Piece")}}
+                	{{apos.log(data.widget._pieces)}}
+
+                    {{ apos.log("WIdget Filename")}}
+                    {{apos.log(data.widget._pieces[0].filename.items[0]._pieces[0].attachment)}}
+
+                    {{ apos.log("WIdget Poster")}}
+                    {{apos.log(data.widget._pieces[0].poster.items[0]._pieces[0].item.attachment) }}
+
+                    {% set vidFile = data.widget._pieces[0].filename.items[0]._pieces[0].attachment or null %}
+
+                    {% set vidPoster = data.widget._pieces[0].poster.items[0]._pieces[0].item.attachment or null %}
+
+                    {% if vidPoster %}
+                        <video class="playRepeatVideo" id="highZoomVid"  width=100% controls controlsList="nodownload" poster="{{ apos.attachments.url(vidPoster) }}"> 
+                    {% else %}
+                        <video class="playRepeatVideo" id="highZoomVid"  width=100% controls controlsList="nodownload">
+                    {% endif %}
+        
+                            <source src="{{ apos.attachments.url(vidFile) }}" type='video/mp4' > 
+                            <button id="play">&gt;</button>
+                            <button type="button" class="btn btn-primary">Primary</button>
+                        </video>    
+                </div>

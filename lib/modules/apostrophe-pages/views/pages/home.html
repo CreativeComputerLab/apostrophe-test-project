@@ -6,12 +6,22 @@
 {% extends "layout.html" %}
 
 {% block main %}
-  <div class="main-content">
+  <div class="main-content" style="margin-bottom:20px">
     <h3>Hello world!
       {% if not data.user %}
         <a class="login-link" href="/login">Login</a>
       {% endif %}
     </h3>
     <p>This is a very bare bones Apostrophe project. Now, get to work and make a real website!</p>
+  </div>
+
+  <div style="min-height:200px;width:300px; margin:0 auto">
+      <h3 style="text-align:center"> Place Local Videos Here: </h3>
+    {{ apos.area(data.page, 'video', {
+      widgets: {
+        'local-video' : {},
+        'local-video-piece': {}
+      }
+    }) }}
   </div>
 {% endblock %}
