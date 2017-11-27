@@ -1,0 +1,103 @@
+<div class="apos-slideshow{% block outerClass %}{% endblock %}" data-slideshow>
+  <div data-slideshow-items>
+    {%- block items -%}
+    {%-if image.bootstrap-carousel -%}
+
+ <!-- Carousel
+  ================================================== -->
+     <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+      {%- for entry in data.widget._pieces -%}
+        {# Works whether there's a relationship in the join or not. Normally there always #}
+        {# is for slideshows, but just in case someone really hates cropping... -Tom #}
+        {%- set image = entry.item or entry -%}
+        {%- set relationship = entry.relationship -%}
+
+
+
+
+          <div class="carousel-inner" role="listbox">
+
+          <!--<div class="item active">-->
+          <div class="item{% if loop.first %} active {% endif %}"
+          style="background-image:
+              url({{ apos.attachments.url(image.attachment, { size: data.options.size, crop: relationship }) }})
+              {%- if apos.attachments.hasFocalPoint(relationship) -%}
+               ; background-position: {{ apos.attachments.focalPointToBackgroundPosition(relationship) }} {%- endif -%}"
+          >
+
+                <!--<img class="first-slide" src="img/beapBanner.jpg" alt="Security System Installation Company" > -->
+
+
+                <img class="bootstrap-slide" src="{{ apos.attachments.url(image.attachment, { size: data.options.size, crop: relationship })" alt="{{ image.title }}" >
+                <div class="carousel-caption">
+                  <h1>Make the Right Call</h1>
+                  <p>Learn how to engage emergency services</p>
+                  <a class="btn btn-lg btn-primary" href="#Learn" role="button">Learn More</a>
+                </div>                  
+            </div>
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="{{loop.index0}}" class="{% if loop.first %} active {% endif %}"></li>
+          </ol>
+      {%- endfor -%}
+
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+      </div>  
+      
+
+    {%- else -%}
+
+          {%- for entry in data.widget._pieces -%}
+            {# Works whether there's a relationship in the join or not. Normally there always #}
+            {# is for slideshows, but just in case someone really hates cropping... -Tom #}
+            {%- set image = entry.item or entry -%}
+            {%- set relationship = entry.relationship -%}
+            <div data-slideshow-item
+              class="apos-slideshow-item{% if loop.first %} apos-current{% endif %}{% block itemClass %}{% endblock %}"
+              style="background-image:
+                url({{ apos.attachments.url(image.attachment, { size: data.options.size, crop: relationship }) }})
+                {%- if apos.attachments.hasFocalPoint(relationship) -%}
+                  ; background-position: {{ apos.attachments.focalPointToBackgroundPosition(relationship) }}
+                {%- endif -%}
+              ">
+              {%- block title -%}<h4>{{ image.title }}</h4>{%- endblock -%}
+              <img alt="{{ image.title }}" data-image src="{% block imgSrc %}{{ apos.attachments.url(image.attachment, { size: data.options.size, crop: relationship }) }}{% endblock %}" />
+              {%- block credit -%}
+                {%- if image.credit -%}
+                  {%- if image.creditUrl -%}
+                    <a href="{{ image.creditUrl }}">
+                  {%- endif -%}
+                  {{ image.credit }}
+                  {%- if image.creditUrl -%}
+                    </a>
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endblock -%}
+              {%- block description -%}
+                {%- if image.description -%}
+                  <div>{{ image.description | nlbr }}</div>
+                {%- endif -%}
+              {%- endblock -%}
+              <div class="bannerCaption">
+                <h1> Buy Now!</h1>
+              </div>
+            </div>
+          {%- endfor -%}
+      {%- endif -%}
+    {%- endblock -%}
+  </div>
+</div>
+{% block arrows %}
+  {% if data.widget._pieces.length > 1 %}
+    <a href="#" data-next class="apos-slideshow-button apos-slideshow-next default-style"><i class="fa fa-angle-right"></i></a>
+    <a href="#" data-previous class="apos-slideshow-button apos-slideshow-prev default-style"><i class="fa fa-angle-left"></i></a>
+  {% endif %}
+{% endblock %}

@@ -14,4 +14,29 @@
     </h3>
     <p>This is a very bare bones Apostrophe project. Now, get to work and make a real website!</p>
   </div>
+
+<h3 style="text-align:center"> Choose Banner </h3>
+<div style="min-height:200px; margin:0 auto">
+    {{ apos.area(data.page, 'left', {
+      widgets: {
+       'apostrophe-rich-text': {
+          toolbar: [ 'Styles', 'Bold', 'Italic', 'Blockquote', 'Link', 'Anchor', 'Unlink', 'BulletedList' ],
+          styles: [
+            { name: 'Title', element: 'h3' },
+            { value: 'h5', label: 'Subtitle' },
+            { name: 'Paragraph', element: 'p' }
+          ]
+        },
+        'banner-images': {
+          minSize: [ 200, 200 ],
+          size: 'full'
+        },
+        'apostrophe-images': {
+          minSize: [ 200, 200 ],
+          size: 'full'
+        }
+
+      }
+    }) }}
+</div>
 {% endblock %}
